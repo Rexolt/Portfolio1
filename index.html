@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="hu">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Mészáros Bálint | Creative Developer</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Italiana&family=Manrope:wght@200;300;400;500;600&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="antialiased selection:bg-white selection:text-black">
+
+    <div class="grain"></div>
+
+    <div id="loader" class="fixed inset-0 bg-[#030303] z-[9999] flex flex-col items-center justify-center gap-4">
+        <div class="w-[1px] h-16 bg-white/10 relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-full bg-white translate-y-full" id="load-bar"></div>
+        </div>
+        <div class="text-[10px] font-mono uppercase tracking-[0.3em] text-white/50 animate-pulse">Betöltés</div>
+    </div>
+
+    <div id="canvas-container"></div>
+
+    <div class="cursor-dot hidden md:block"></div>
+    <div class="cursor-circle hidden md:block"></div>
+    <img src="" alt="" class="hover-img hidden md:block" id="project-preview">
+
+    <div id="mobile-menu">
+        <button id="close-menu" class="absolute top-6 right-6 p-2 text-white"><i data-lucide="x"
+                width="32"></i></button>
+        <a href="#projects" class="mobile-link text-4xl font-serif italic">Munkák</a>
+        <a href="#services" class="mobile-link text-4xl font-serif italic">Szolgáltatás</a>
+        <a href="#tech" class="mobile-link text-4xl font-serif italic">Stack</a>
+        <a href="#contact" class="mobile-link text-4xl font-serif italic">Kapcsolat</a>
+        <div class="mt-8 text-xs text-gray-500 font-mono">MB. PORTFOLIO 2024</div>
+    </div>
+
+    <nav class="fixed top-0 w-full px-5 py-4 md:px-12 md:py-6 flex justify-between items-center z-50">
+        <a href="#" class="font-serif text-2xl font-bold tracking-tighter relative z-50 mix-blend-difference">MB.</a>
+
+        <div class="hidden md:flex gap-10 bg-white/5 px-8 py-3 rounded-full border border-white/5 backdrop-blur-sm">
+            <a href="#projects"
+                class="text-[11px] uppercase tracking-widest font-semibold opacity-60 hover:opacity-100 hover:text-white transition-all hover-scramble"
+                data-text="Munkák">Munkák</a>
+            <a href="#services"
+                class="text-[11px] uppercase tracking-widest font-semibold opacity-60 hover:opacity-100 hover:text-white transition-all hover-scramble"
+                data-text="Szolgáltatás">Szolgáltatás</a>
+            <a href="#tech"
+                class="text-[11px] uppercase tracking-widest font-semibold opacity-60 hover:opacity-100 hover:text-white transition-all hover-scramble"
+                data-text="Tech">Tech</a>
+            <a href="#contact"
+                class="text-[11px] uppercase tracking-widest font-semibold opacity-60 hover:opacity-100 hover:text-white transition-all hover-scramble"
+                data-text="Kapcsolat">Kapcsolat</a>
+        </div>
+
+        <button id="open-menu" class="md:hidden text-white p-2 -mr-2"><i data-lucide="menu" width="28"></i></button>
+    </nav>
+
+    <main>
+
+        <section class="min-h-screen w-full relative flex flex-col justify-center items-center overflow-hidden pt-16">
+            <div class="ambient-light top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-30"></div>
+
+            <div class="w-full px-4 md:px-20 relative z-10 pointer-events-none flex flex-col justify-center h-full">
+
+                <div class="hero-parallax" data-speed="0.1">
+                    <h1
+                        class="hero-title font-serif text-left block text-reveal text-transparent bg-clip-text bg-gradient-to-br from-white via-gray-300 to-gray-600">
+                        MÉSZÁROS</h1>
+                </div>
+
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-end w-full mt-2 md:-mt-4">
+                    <div class="order-2 md:order-1 mt-8 md:mt-0 max-w-xs text-left animate-fade-in opacity-0"
+                        style="animation-delay: 0.6s">
+                        <div class="w-8 h-[1px] bg-white mb-4"></div>
+                        <p class="text-sm md:text-base font-sans leading-relaxed text-gray-400 font-light">
+                            Creative Developer & UI/UX Designer.<br>
+                            Kód és design metszéspontja.
+                        </p>
+                        <div class="mt-6 flex gap-4 text-[10px] uppercase tracking-widest text-gray-500 font-mono">
+                            <span class="flex items-center gap-2">
+                                <div class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></div> Open for work
+                            </span>
+                        </div>
+                    </div>
+                    <div class="hero-parallax order-1 md:order-2 w-full md:w-auto" data-speed="-0.1">
+                        <h1 class="hero-title font-serif text-right block text-reveal text-transparent bg-clip-text bg-gradient-to-br from-gray-400 via-gray-100 to-white"
+                            style="animation-delay: 0.15s">BÁLINT</h1>
+                    </div>
+                </div>
+            </div>
+
+            <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-0 animate-fade-in"
+                style="animation-delay: 1.2s">
+                <span class="text-[10px] uppercase tracking-[0.2em] mb-1 opacity-40">Scroll</span>
+                <div class="w-[1px] h-12 bg-gradient-to-b from-white to-transparent opacity-30"></div>
+            </div>
+        </section>
+
+        <div class="marquee-container">
+            <div class="marquee-content">
+                <div class="marquee-item">KOTLIN <span>ANDROID</span></div>
+                <div class="marquee-item">PYTHON <span>BACKEND</span></div>
+                <div class="marquee-item">THREE.JS <span>WEBGL</span></div>
+                <div class="marquee-item">REACT <span>FRONTEND</span></div>
+                <div class="marquee-item">DESIGN <span>UI/UX</span></div>
+                <div class="marquee-item">KOTLIN <span>ANDROID</span></div>
+                <div class="marquee-item">THREE.JS <span>WEBGL</span></div>
+            </div>
+        </div>
+
+        <section id="projects" class="py-16 md:py-32 px-4 md:px-24 relative z-10">
+            <div class="ambient-light top-0 right-0 translate-x-1/3 -translate-y-1/2 opacity-20 bg-blue-900"></div>
+
+            <div
+                class="flex flex-col md:flex-row justify-between items-end mb-12 md:mb-24 border-b border-white/10 pb-6">
+                <h2 class="font-serif text-4xl md:text-8xl text-white/90">Kiemelt<br><span
+                        class="italic text-gray-500">Munkák</span></h2>
+                <div
+                    class="mt-4 md:mt-0 flex items-center gap-2 text-[10px] font-mono opacity-50 border border-white/20 px-3 py-1 rounded-full">
+                    <span>Selected Works 2023-24</span>
+                </div>
+            </div>
+
+            <div class="project-list">
+                <a href="https://github.com/Rexolt/fxit" target="_blank"
+                    class="project-item group block border-b border-white/10 py-8 md:py-12 relative overflow-hidden transition-all duration-300 md:hover:bg-white/5 md:hover:px-8"
+                    data-img="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=2670&auto=format&fit=crop">
+                    <div
+                        class="flex flex-col md:flex-row md:justify-between md:items-center gap-4 md:gap-0 relative z-10">
+                        <div class="flex items-center gap-4 md:gap-16">
+                            <span class="font-mono text-xs text-gray-600">01 /</span>
+                            <h3
+                                class="text-3xl md:text-6xl font-serif text-gray-300 md:group-hover:text-white transition-colors">
+                                Fxit</h3>
+                        </div>
+                        <div class="flex justify-between items-end md:block md:text-right">
+                            <div class="flex gap-2 mb-1">
+                                <span
+                                    class="px-2 py-1 border border-white/10 rounded text-[10px] uppercase text-gray-400">Android</span>
+                                <span
+                                    class="px-2 py-1 border border-white/10 rounded text-[10px] uppercase text-gray-400">Kotlin</span>
+                            </div>
+                            <span class="text-xs text-gray-500 block md:mt-2">Equation Solver App</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="https://github.com/Rexolt/SoundR" target="_blank"
+                    class="project-item group block border-b border-white/10 py-8 md:py-12 relative overflow-hidden transition-all duration-300 md:hover:bg-white/5 md:hover:px-8"
+                    data-img="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=2670&auto=format&fit=crop">
+                    <div
+                        class="flex flex-col md:flex-row md:justify-between md:items-center gap-4 md:gap-0 relative z-10">
+                        <div class="flex items-center gap-4 md:gap-16">
+                            <span class="font-mono text-xs text-gray-600">02 /</span>
+                            <h3
+                                class="text-3xl md:text-6xl font-serif text-gray-300 md:group-hover:text-white transition-colors">
+                                SoundR</h3>
+                        </div>
+                        <div class="flex justify-between items-end md:block md:text-right">
+                            <div class="flex gap-2 mb-1">
+                                <span
+                                    class="px-2 py-1 border border-white/10 rounded text-[10px] uppercase text-gray-400">Electron</span>
+                                <span
+                                    class="px-2 py-1 border border-white/10 rounded text-[10px] uppercase text-gray-400">JS</span>
+                            </div>
+                            <span class="text-xs text-gray-500 block md:mt-2">Desktop Audio Controller</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="https://github.com/Rexolt/QWENZ_classic" target="_blank"
+                    class="project-item group block border-b border-white/10 py-8 md:py-12 relative overflow-hidden transition-all duration-300 md:hover:bg-white/5 md:hover:px-8"
+                    data-img="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2670&auto=format&fit=crop">
+                    <div
+                        class="flex flex-col md:flex-row md:justify-between md:items-center gap-4 md:gap-0 relative z-10">
+                        <div class="flex items-center gap-4 md:gap-16">
+                            <span class="font-mono text-xs text-gray-600">03 /</span>
+                            <h3
+                                class="text-3xl md:text-6xl font-serif text-gray-300 md:group-hover:text-white transition-colors">
+                                Qwenz</h3>
+                        </div>
+                        <div class="flex justify-between items-end md:block md:text-right">
+                            <div class="flex gap-2 mb-1">
+                                <span
+                                    class="px-2 py-1 border border-white/10 rounded text-[10px] uppercase text-gray-400">Python</span>
+                            </div>
+                            <span class="text-xs text-gray-500 block md:mt-2">Retro Quiz Game</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="mt-12 text-center">
+                <a href="https://github.com/Rexolt" target="_blank"
+                    class="inline-flex items-center gap-2 text-xs uppercase tracking-widest border-b border-white/30 pb-2 hover:border-white transition-colors text-white/70">
+                    Összes projekt (GitHub) <i data-lucide="arrow-right" width="14"></i>
+                </a>
+            </div>
+        </section>
+
+        <section id="services" class="py-16 md:py-32 px-4 md:px-24 relative z-10">
+            <div class="ambient-light bottom-0 left-0 -translate-x-1/2 translate-y-1/2 opacity-20 bg-purple-900"></div>
+
+            <div class="mb-12 md:mb-20">
+                <h2 class="font-serif text-3xl md:text-6xl mb-4">Szolgáltatások</h2>
+                <p class="text-sm text-gray-400 leading-relaxed font-light max-w-xl">
+                    Megoldások a tervezéstől a megvalósításig.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="service-card">
+                    <i data-lucide="smartphone" class="w-8 h-8 mb-4 text-white/80"></i>
+                    <h3 class="text-xl font-serif mb-2 text-white">Mobilfejlesztés</h3>
+                    <p class="text-xs text-gray-400 leading-relaxed">Natív Android (Kotlin) appok.</p>
+                </div>
+                <div class="service-card">
+                    <i data-lucide="layers" class="w-8 h-8 mb-4 text-white/80"></i>
+                    <h3 class="text-xl font-serif mb-2 text-white">Web & Creative</h3>
+                    <p class="text-xs text-gray-400 leading-relaxed">React, Next.js, Three.js oldalak.</p>
+                </div>
+                <div class="service-card">
+                    <i data-lucide="database" class="w-8 h-8 mb-4 text-white/80"></i>
+                    <h3 class="text-xl font-serif mb-2 text-white">Backend</h3>
+                    <p class="text-xs text-gray-400 leading-relaxed">Python / Node.js rendszerek.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="tech" class="py-16 md:py-24 px-4 md:px-24 relative z-10 border-t border-white/5">
+            <h2 class="font-serif text-3xl md:text-5xl mb-8">Technológiák</h2>
+            <div class="tech-wrapper">
+                <div class="tech-pill"><span class="w-1.5 h-1.5 rounded-full bg-purple-500"></span>Kotlin</div>
+                <div class="tech-pill"><span class="w-1.5 h-1.5 rounded-full bg-yellow-400"></span>Python</div>
+                <div class="tech-pill"><span class="w-1.5 h-1.5 rounded-full bg-yellow-300"></span>JavaScript</div>
+                <div class="tech-pill"><span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>React</div>
+                <div class="tech-pill"><span class="w-1.5 h-1.5 rounded-full bg-white"></span>Next.js</div>
+                <div class="tech-pill"><span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>Node.js</div>
+                <div class="tech-pill"><span class="w-1.5 h-1.5 rounded-full bg-white"></span>Three.js</div>
+                <div class="tech-pill"><span class="w-1.5 h-1.5 rounded-full bg-pink-500"></span>Figma</div>
+                <div class="tech-pill"><span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>Git</div>
+            </div>
+        </section>
+
+        <section id="console" class="py-16 md:py-32 px-4 relative z-10">
+            <div class="max-w-5xl mx-auto">
+                <div class="flex flex-col md:flex-row gap-8 md:gap-16 items-start">
+                    <div class="w-full md:w-5/12">
+                        <div
+                            class="inline-block px-2 py-1 border border-white/20 rounded text-[10px] font-mono mb-4 text-green-400 bg-green-900/10">
+                            SYSTEM_LOG</div>
+                        <h2 class="text-3xl md:text-5xl font-serif mb-4">Napló</h2>
+                    </div>
+                    <div class="w-full md:w-7/12">
+                        <div class="terminal-window w-full">
+                            <div class="terminal-header">
+                                <div class="dot red"></div>
+                                <div class="dot yellow"></div>
+                                <div class="dot green"></div>
+                                <span class="text-[10px] opacity-40 font-mono ml-auto">bash</span>
+                            </div>
+                            <div class="terminal-body" id="terminal-content"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact"
+            class="min-h-[80vh] flex flex-col items-center justify-center text-center px-4 relative z-10 pt-12 pb-24">
+            <div class="ambient-light top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-20 bg-white"></div>
+
+            <div class="mb-12 relative z-10">
+                <p class="text-[10px] font-mono text-gray-500 mb-4 uppercase tracking-widest">Dolgozzunk együtt</p>
+                <h2 class="text-4xl md:text-9xl font-serif">
+                    <a href="mailto:meszaros.balint@example.com"
+                        class="text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-600">KAPCSOLAT</a>
+                </h2>
+                <a href="mailto:hello@rexolt.dev"
+                    class="mt-6 inline-block text-lg text-gray-400 font-light">hello@rexolt.dev</a>
+            </div>
+
+            <div
+                class="flex flex-col md:flex-row gap-6 md:gap-16 text-xs uppercase tracking-[0.2em] text-gray-500 font-bold">
+                <a href="https://github.com/Rexolt" target="_blank"
+                    class="hover:text-white transition-colors">GitHub</a>
+                <a href="#" class="hover:text-white transition-colors">LinkedIn</a>
+            </div>
+
+            <footer class="absolute bottom-6 w-full text-center">
+                <div class="flex justify-center items-center gap-2 opacity-30 text-[10px] uppercase font-mono">
+                    <span>&copy; 2024</span><span class="w-1 h-1 bg-white rounded-full"></span><span>Mészáros
+                        Bálint</span>
+                </div>
+            </footer>
+        </section>
+
+    </main>
+    <script type="module" src="/src/main.js"></script>
+</body>
+
+</html>
