@@ -99,7 +99,7 @@ const initThreeJS = () => {
 
     const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: !isMobile }); // No AA on mobile for performance
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.0 : 2)); // Cap at 1.0 for mobile performance
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.5 : 2)); // Better quality on mobile
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.0; // Slightly reduced
     container.appendChild(renderer.domElement);
@@ -143,7 +143,11 @@ const initThreeJS = () => {
             clearcoat: 0.1,
             side: THREE.DoubleSide
         });
-        headMesh.scale.set(0.8, 0.8, 0.8); scene.add(headMesh);
+
+        // Larger head on mobile
+        const scale = isMobile ? 1.0 : 0.8;
+        headMesh.scale.set(scale, scale, scale);
+        scene.add(headMesh);
 
         const tl = gsap.timeline();
         tl.to('#load-bar', { y: '0%', duration: 0.8, ease: 'expo.inOut' })
