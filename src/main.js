@@ -11,10 +11,8 @@ import { createIcons, icons } from 'lucide';
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Check for Mobile
 const isMobile = window.innerWidth < 768;
 
-// --- 1. TERMINAL LOGIC (Simplified for Mobile) ---
 const initTerminal = () => {
     const container = document.getElementById('terminal-content');
     const lines = [
@@ -53,7 +51,6 @@ const initTerminal = () => {
 };
 initTerminal();
 
-// --- 2. TEXT SCRAMBLE (Only desktop hover) ---
 if (!isMobile) {
     class TextScramble {
         constructor(el) { this.el = el; this.chars = '!<>-_\\/[]{}—=+*^?#________'; this.update = this.update.bind(this); }
@@ -88,13 +85,13 @@ if (!isMobile) {
     });
 }
 
-// --- 3. THREE.JS SCENE (Optimized) ---
+
+
 const initThreeJS = () => {
     const container = document.getElementById('canvas-container');
     const scene = new THREE.Scene(); scene.fog = new THREE.FogExp2(0x030303, 0.02);
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 
-    // Camera further back on mobile to fit the head vertically
     camera.position.z = isMobile ? 15 : 9;
 
     const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: !isMobile }); // No AA on mobile for performance
@@ -133,13 +130,14 @@ const initThreeJS = () => {
     const particles = new THREE.Points(particlesGeo, new THREE.PointsMaterial({ size: 0.04, color: 0x888888, transparent: true, opacity: 0.6 })); // Slightly adjusted
     scene.add(particles);
 
-    let headMesh; const loader = new GLTFLoader();
+    let headMesh, wireMesh; const loader = new GLTFLoader();
     loader.load('https://raw.githubusercontent.com/mrdoob/three.js/master/examples/models/gltf/LeePerrySmith/LeePerrySmith.glb', (gltf) => {
         headMesh = gltf.scene.children[0]; headMesh.geometry.center();
+
         headMesh.material = new THREE.MeshPhysicalMaterial({
             color: 0x111111,
             roughness: 0.5,
-            metalness: 0.1, // Reduced significantly as we lack an envMap
+            metalness: 0.1,
             clearcoat: 0.1,
             side: THREE.DoubleSide
         });
@@ -148,6 +146,17 @@ const initThreeJS = () => {
         const scale = isMobile ? 1.0 : 0.8;
         headMesh.scale.set(scale, scale, scale);
         scene.add(headMesh);
+
+        // Wireframe Clone (Hidden by default)
+        const wiregeo = headMesh.geometry.clone();
+        wireMesh = new THREE.Mesh(wiregeo, new THREE.MeshBasicMaterial({
+            color: 0x4444ff,
+            wireframe: true,
+            transparent: true,
+            opacity: 0
+        }));
+        wireMesh.scale.set(scale, scale, scale); // Match scale
+        scene.add(wireMesh);
 
         const tl = gsap.timeline();
         tl.to('#load-bar', { y: '0%', duration: 0.8, ease: 'expo.inOut' })
@@ -190,6 +199,30 @@ const initThreeJS = () => {
             }
             headMesh.position.y = Math.sin(time * 0.5) * 0.1 + (scrollPct * 0.5);
             headMesh.material.color.lerp(targetColor, 0.05);
+
+            // Wireframe Visibility Logic
+            if (wireMesh) {
+                wireMesh.rotation.copy(headMesh.rotation);
+                wireMesh.position.copy(headMesh.position);
+
+                let opacity = 0;
+                if (scrollPct > 0.3 && scrollPct < 0.8) {
+                    if (scrollPct < 0.55) opacity = (scrollPct - 0.3) / 0.25;
+                    else opacity = 1 - (scrollPct - 0.55) / 0.25;
+                }
+                wireMesh.material.opacity = Math.max(0, opacity * 0.15);
+            }
+
+            // Chrome Material Logic (Contact Section)
+            if (scrollPct > 0.8) {
+                const chromeFactor = (scrollPct - 0.8) / 0.2; // 0 to 1
+                headMesh.material.roughness = THREE.MathUtils.lerp(0.5, 0.1, chromeFactor);
+                headMesh.material.metalness = THREE.MathUtils.lerp(0.1, 1.0, chromeFactor);
+                headMesh.material.color.lerp(new THREE.Color(0xffffff), chromeFactor * 0.1); // Slightly lighter
+            } else {
+                headMesh.material.roughness = 0.5;
+                headMesh.material.metalness = 0.1;
+            }
         }
         if (particles) { particles.rotation.y = time * 0.02; particles.position.y = -window.scrollY * 0.005; }
 
@@ -213,7 +246,6 @@ const initThreeJS = () => {
 };
 initThreeJS();
 
-// --- 4. DESKTOP ONLY INTERACTIONS ---
 if (!isMobile) {
     const cursorDot = document.querySelector('.cursor-dot'); const cursorCircle = document.querySelector('.cursor-circle'); const projectPreview = document.getElementById('project-preview');
     let mouseX = 0, mouseY = 0, cursorX = 0, cursorY = 0;
@@ -244,7 +276,6 @@ if (!isMobile) {
     });
 }
 
-// --- 5. MOBILE MENU & SMOOTH SCROLL ---
 const menuBtn = document.getElementById('open-menu'); const closeBtn = document.getElementById('close-menu'); const menuOverlay = document.getElementById('mobile-menu');
 const toggleMenu = () => { menuOverlay.classList.toggle('open'); document.body.style.overflow = menuOverlay.classList.contains('open') ? 'hidden' : 'auto'; };
 menuBtn.addEventListener('click', toggleMenu); closeBtn.addEventListener('click', toggleMenu); document.querySelectorAll('.mobile-link').forEach(l => l.addEventListener('click', toggleMenu));
